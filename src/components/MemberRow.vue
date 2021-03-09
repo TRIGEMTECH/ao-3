@@ -197,7 +197,7 @@ label
     margin-right: 2em
 
 .loggedIn
-    background: main
-    color: lightGrey
+    background: activeAccount
+    color: darkGrey
 
 </style>

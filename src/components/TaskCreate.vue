@@ -22,11 +22,11 @@
       #btnpanel.btnpanel
           .ping {{ $store.state.loader.reqStatus }}
           div(:class='{ opaque : showCreate, btnwrapper : !showCreate }')
-              .fifth(@click.stop='switchColor("red")'  :class='{ down : task.color === "red" && showCreate, loadin: $store.state.loader.pendingFlash[0] }').redtx.paperwrapper
-              .fifth(@click.stop='switchColor("yellow")'  :class='{ down : task.color === "yellow" && showCreate, loadin: $store.state.loader.pendingFlash[1]}').yellowtx.paperwrapper
-              .fifth(@click.stop='switchColor("green")'  :class='{ down : task.color === "green"  && showCreat, loadin: $store.state.loader.pendingFlash[2]}').greentx.paperwrapper
-              .fifth(@click.stop='switchColor("purple")'  :class='{ down : task.color === "purple" && showCreate, loadin: $store.state.loader.pendingFlash[3]}').purpletx.paperwrapper
-              .fifth(@click.stop='switchColor("blue")'  :class='{ down : task.color === "blue" && showCreate, loadin: $store.state.loader.pendingFlash[4]}').bluetx.paperwrapper
+              .fifth(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='switchColor("red")' id='red' :class='{ down : task.color === "red" && showCreate, loadin: $store.state.loader.pendingFlash[0] }').redtx.paperwrapper
+              .fifth(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='switchColor("yellow")' id='yellow'  :class='{ down : task.color === "yellow" && showCreate, loadin: $store.state.loader.pendingFlash[1]}').yellowtx.paperwrapper
+              .fifth(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='switchColor("green")' id='green'  :class='{ down : task.color === "green"  && showCreate, loadin: $store.state.loader.pendingFlash[2]}').greentx.paperwrapper
+              .fifth(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='switchColor("purple")' id='purple'  :class='{ down : task.color === "purple" && showCreate, loadin: $store.state.loader.pendingFlash[3]}').purpletx.paperwrapper
+              .fifth(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='switchColor("blue")' id='blue'  :class='{ down : task.color === "blue" && showCreate, loadin: $store.state.loader.pendingFlash[4]}').bluetx.paperwrapper
       .scrollbarwrapper(v-show='showSearch')
           .searchresults
               .searchtotal(@click='boatAll') {{ searchTotal }} of {{ $store.state.tasks.length }}
@@ -43,6 +43,7 @@
 
 <script>
 
+import display from '../display'
 import calculations from '../calculations'
 import Hammer from 'hammerjs'
 import cryptoUtils from '../crypto'
@@ -347,6 +348,14 @@ export default {
             let splitty = shortname.split(this.$store.state.upgrades.search.toLowerCase())
             return splitty
         },
+        imageMouseOver(event){
+            event.target.title = display.getTooltip(event.target.id, this.task.color, this.showCreate)
+            event.target.style.backgroundColor = display.getTooltipColor(event.target.id, this.task.color, this.showCreate, this.$store.getters.member.stacks)
+        },
+        imageMouseLeave(event){
+            event.target.title='';
+            event.target.style.backgroundColor = '';
+        }        
     },
     computed: {
         searchEqual(){

@@ -17,7 +17,8 @@ const crypto = require('../crypto')
 bitClient.getBlockchainInfo().then(x => {
     console.log(chalk.yellow(x.blocks.toLocaleString(), 'verified blocks'))
 }).catch( err => {
-    console.log(chalk.red('cannot connect to bitcoind'))
+    var d = new Date();
+    console.error(chalk.red(`Bitcoind connection failure ` + d.toLocaleString("en-US")));
 })
 
 function getDecode (rawx){

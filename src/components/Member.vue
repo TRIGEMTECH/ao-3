@@ -15,9 +15,9 @@
                 linky(:x='m.name')
             card(v-else  :b='card')
     div
-        .bottomleft(@click='toBoat'  :class='{activationsequence: $store.state.upgrades.mode === "boat"}')
-        .bottomleft(@click='toTimeCube'  :class='{activationsequence: $store.state.upgrades.mode === "timecube"}')
-        .bottomleft(@click='toChest'  :class='{activationsequence: $store.state.upgrades.mode === "chest"}')
+        .bottomleft(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click='toBoat' id="boat" :class='{activationsequence: $store.state.upgrades.mode === "boat"}')
+        .bottomleft(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click='toTimeCube' id="timecube" :class='{activationsequence: $store.state.upgrades.mode === "timecube"}')
+        .bottomleft(@mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click='toChest' id='chest' :class='{activationsequence: $store.state.upgrades.mode === "chest"}')
     .clearboth
 </template>
 
@@ -147,8 +147,35 @@ export default {
                 type: 'member-activated',
                 memberId: this.$store.getters.member.memberId,
             })
-        }
+        },
+        imageMouseOver(event){
+            switch(event.target.id)
+            {
+                case 'boat':
+                    if (this.$store.state.upgrades.mode != "boat")
+                        event.target.title='View card list';
+                    else
+                        event.target.title='Close card list';
+                break;
 
+                case 'timecube':
+                    if (this.$store.state.upgrades.mode != "timecube")
+                        event.target.title='View card time line';
+                    else
+                        event.target.title='Close card time line';
+                break;
+
+                case 'chest':
+                    if (this.$store.state.upgrades.mode != "chest")
+                        event.target.title='View card chest';
+                    else
+                        event.target.title='Close card chest';
+                break;
+            }
+        },
+        imageMouseLeave(event){
+            event.target.title='';
+        }
     }
 }
 </script>

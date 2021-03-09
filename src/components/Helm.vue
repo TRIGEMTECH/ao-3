@@ -1,9 +1,9 @@
 <template lang='pug'>
 
 .helm
-    img.gear(@click.stop='$store.commit("toggleSettings")'  src='../assets/images/gear.svg')
-    img.bull(@click.stop='$store.commit("toggleNodeInfo")'  src='../assets/images/bull.svg')
-    img.doge(@click.stop='$store.commit("toggleAccounts")'  src='../assets/images/doge.svg')
+    img.gear(id='gear' @mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='$store.commit("toggleSettings")'  src='../assets/images/gear.svg')
+    img.bull(id='bull' @mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='$store.commit("toggleNodeInfo")'  src='../assets/images/bull.svg')
+    img.doge(id='doge' @mouseover='imageMouseOver' @mouseleave='imageMouseLeave' @click.stop='$store.commit("toggleAccounts")'  src='../assets/images/doge.svg')
     settings(@click.stop  v-if='$store.state.upgrades.showSettings').settings
     lightning(@click.stop  v-if='$store.state.upgrades.showNodeInfo').lightning
     accounts(@click.stop  v-if='$store.state.upgrades.showAccounts').accounts
@@ -20,6 +20,36 @@ export default {
     components: {
         Settings, Lightning, Accounts
     },
+    methods: {
+        imageMouseOver(event){
+            switch (event.target.id)
+            {
+                case 'doge':
+                    if (this.$store.state.upgrades.showAccounts == false)
+                        event.target.title = 'View Accounts'
+                    else
+                        event.target.title = 'Close View Accounts'
+                break;
+
+                case 'bull':
+                    if (this.$store.state.upgrades.showNodeInfo == false)
+                        event.target.title = 'View Transactions'
+                    else
+                        event.target.title = 'Close View Transactions'
+                break;
+
+                case 'gear':
+                    if (this.$store.state.upgrades.showSettings == false)
+                        event.target.title = 'View Settings'
+                    else
+                        event.target.title = 'Close View Settings'
+                break;
+            }
+        },
+        imageMouseLeave(event){
+            event.target.title='';
+        }        
+    }
 }
 
 </script>
@@ -28,9 +58,6 @@ export default {
 
 @import '../styles/grid';
 @import '../styles/colours';
-
-.helm
-    z-index: 9001
 
 .hidden
     opacity: 0

@@ -105,8 +105,9 @@ class LightningClient extends EventEmitter {
                 _self.reconnect();
             });
 
-            _self.client.on('error', error => {
-                console.error(chalk.red(`Lightning cannot connect`));
+            _self.client.on('error', () => {
+                var d = new Date();
+                console.error(chalk.red(`Lightning connection failure ` + d.toLocaleString("en-US")));
                 _self.increaseWaitTime();
                 _self.reconnect();
             });

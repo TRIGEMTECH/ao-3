@@ -82,9 +82,9 @@ function startDctrlAo(){
                             break
                         case 'spot-updated':
                             if (priceTracker < ev.spot){
-                                console.log(chalk.yellow(ev.type, ev.spot, "CAD/BTC", chalk.bold.green('+', (ev.spot - priceTracker).toFixed(2))))
+                                console.log(chalk.bold.yellow(ev.type, (ev.spot).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","), "CAD/BTC", chalk.bold.green('+', (ev.spot - priceTracker).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","))))
                             } else if (priceTracker > ev.spot){
-                                console.log(chalk.yellow(ev.type, ev.spot, "CAD/BTC", chalk.bold.red('-', (priceTracker - ev.spot).toFixed(2))))
+                                console.log(chalk.bold.yellow(ev.type, (ev.spot).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","), "CAD/BTC", chalk.bold.red('-', (priceTracker - ev.spot).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","))))
                             }
                             priceTracker = ev.spot
                             break
@@ -95,7 +95,7 @@ function startDctrlAo(){
                                     name = m.name
                                 }
                             })
-                            console.log(chalk.green(ev.type), chalk.bold.magenta(name))
+                            console.log(chalk.bold.magenta(name), chalk.bold.green(ev.type))
                             break
                     }
               })

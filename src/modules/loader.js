@@ -92,7 +92,7 @@ const state = {
 
 const mutations = {
     pendFlasher(loader){
-        if (this.getters.isLoggedIn){
+        if (this.getters.isLoggedIn){            
             let i = 0
             let flasher = setInterval(()=> {
               loader.pendingFlash[i] = 0
@@ -102,7 +102,7 @@ const mutations = {
                 clearInterval(flasher)
                 loader.pendingFlash = [0,0,0,0,0]
               }
-            }, 193)
+            }, 99999999)
         }
     },
     setReqStatus(loader, status){
